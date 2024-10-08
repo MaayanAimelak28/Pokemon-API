@@ -1,7 +1,6 @@
 import requests
 import json
 import random
-import webbrowser # to open the HTML file
 
 
 # get a list of all pokemons from the PokeAPI website.
@@ -26,7 +25,7 @@ def make_json_file(pokemon_names_and_urls, defult_pokemon_index=0):
     data = {'name': data_schema['name'], 'id': data_schema['id'], 'height': data_schema['height'],
             'weight': data_schema['weight'], 'base_experience': data_schema['base_experience']}
     # open the JSON file and write the pokemon data as a list
-    with open('/home/ec2-user/output.json', 'w') as f:
+    with open('/home/ec2-user/myrepo/output.json', 'w') as f:
         json.dump([data], f, indent=4)  # write a list with one pokemon
 
     return data
@@ -34,7 +33,7 @@ def make_json_file(pokemon_names_and_urls, defult_pokemon_index=0):
 # extract the data from the JSON file and return it
 def extract_data_from_json():
     # open the JSON file and read the data
-    with open('/home/ec2-user/output.json', 'r') as f:
+    with open('/home/ec2-user/myrepo/output.json', 'r') as f:
         loaded_data = json.load(f)
     return loaded_data
 
@@ -47,77 +46,9 @@ def download_details(pokemon_name, pokemon_names_and_urls):
 
 # update the JSON file with the new list of pokemons
 def update_json_file(pokemons_list):
-    with open('/home/ec2-user/output.json', 'w') as f:
+    with open('/home/ec2-user/myrepo/output.json', 'w') as f:
         json.dump(pokemons_list, f, indent=4)
     return pokemons_list
-
-
-# generate HTML file to display the pokemons
-def generate_html():
-    pokemons = extract_data_from_json()  # load the pokemons data from JSON file
-    # the HTML content
-    html_content = """
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pokémon List</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 20px;
-            text-align: center; 
-        }
-        h1 {
-            color: #1E90FF;
-        }
-        .pokemon {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px auto; 
-            background-color: #fff;
-            display: inline-block; 
-            align-items: center;
-        }
-        .pokemon img {
-            margin-right: 20px;
-        }
-    </style>
-</head>
-<body>
-    <h1>Pokémon List</h1>
-    """
-
-    # add each pokemon to the HTML content
-    for pokemon in pokemons:
-        pokemon_id = pokemon['id']  # get the pokemon id
-        image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{pokemon_id}.png"  # image URL
-        html_content += f"""
-        <div class="pokemon">
-            <img src="{image_url}" alt="{pokemon['name']}" />
-            <div>
-                <h2>{pokemon['name'].capitalize()}</h2>
-                <p>ID: {pokemon['id']}</p>
-                <p>Height: {pokemon['height']}</p>
-                <p>Weight: {pokemon['weight']}</p>
-                <p>Base Experience: {pokemon['base_experience']}</p>
-            </div>
-        </div>
-        """
-
-    # close the HTML content
-    html_content += """
-    </body>
-    </html>
-    """
-
-    # write the HTML content to a file
-    with open('/home/ec2-user/myrepo/pokemon_API.html', 'w', encoding='utf-8') as html_file:
-        html_file.write(html_content)
-
-    webbrowser.open(r'/home/ec2-user/myrepo/pokemon_API.html')
 
 
 # Main function: prompt the user to draw a pokemon. If yes, randomly choose a pokemon.
@@ -167,6 +98,4 @@ def collect_pokemons():
 
 # run the project
 collect_pokemons()
-# generate the HTML file
-generate_html()
 
