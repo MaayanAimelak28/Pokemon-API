@@ -26,7 +26,7 @@ def make_json_file(pokemon_names_and_urls, defult_pokemon_index=0):
     data = {'name': data_schema['name'], 'id': data_schema['id'], 'height': data_schema['height'],
             'weight': data_schema['weight'], 'base_experience': data_schema['base_experience']}
     # open the JSON file and write the pokemon data as a list
-    with open('output.json', 'w') as f:
+    with open('/home/ec2-user/output.json', 'w') as f:
         json.dump([data], f, indent=4)  # write a list with one pokemon
 
     return data
@@ -34,7 +34,7 @@ def make_json_file(pokemon_names_and_urls, defult_pokemon_index=0):
 # extract the data from the JSON file and return it
 def extract_data_from_json():
     # open the JSON file and read the data
-    with open('output.json', 'r') as f:
+    with open('/home/ec2-user/output.json', 'r') as f:
         loaded_data = json.load(f)
     return loaded_data
 
@@ -47,7 +47,7 @@ def download_details(pokemon_name, pokemon_names_and_urls):
 
 # update the JSON file with the new list of pokemons
 def update_json_file(pokemons_list):
-    with open('output.json', 'w') as f:
+    with open('/home/ec2-user/output.json', 'w') as f:
         json.dump(pokemons_list, f, indent=4)
     return pokemons_list
 
