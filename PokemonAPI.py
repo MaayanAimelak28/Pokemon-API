@@ -114,10 +114,10 @@ def generate_html():
     """
 
     # write the HTML content to a file
-    with open('pokemon_API.html', 'w', encoding='utf-8') as html_file:
+    with open('/home/ec2-user/myrepo/pokemon_API.html', 'w', encoding='utf-8') as html_file:
         html_file.write(html_content)
 
-    webbrowser.open(r'C:\Users\maaya\Downloads\AWS\python\PokemonAPI\pokemon_API.html')
+    webbrowser.open(r'/home/ec2-user/myrepo/pokemon_API.html')
 
 
 # Main function: prompt the user to draw a pokemon. If yes, randomly choose a pokemon.
